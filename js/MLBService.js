@@ -17,9 +17,6 @@ MLBService.prototype.getDate = function() {
   var url = 'http://gd2.mlb.com/components/game/mlb/year_'+this.year+'/month_'+this.month+'/day_'+this.day+'/master_scoreboard.json';
   var self = this;
 
-  this.count++;
-  console.log('count = '+this.count);
-
   this.gamesData = [];
   this.games = [];
   this.$http({
@@ -55,30 +52,26 @@ MLBService.prototype.getDate = function() {
           }
           
           if (tempObject.away == self.favorite || tempObject.home == self.favorite) {
-            console.log(tempObject);
             self.games.splice(0,0,tempObject);
           } 
           else {
-            console.log(tempObject);
             self.games.push(tempObject);
           }
         };
-        console.log(self.games);
       }, function (response) {
         self.err = false;
-        console.log(self.err);
       })
 };
 
 MLBService.prototype.getData = function(index) {
     var self = this;
     console.log(index);
-    console.log(self.game[index]);
-    this.innings = this.game[index].linescore.inning;
+    console.log(self.games[index]);
+    this.innings = this.games[index].linescore.inning;
     console.log(this.innings);
     this.$http({
     method: 'POST',
-    url: 'http://www.mlb.com/gdcross'+self.game[index].url+'/boxscore.json'
+    url: 'http://www.mlb.com/gdcross'+self.games[index].url+'/boxscore.json'
   })
     .then(function successCallback(response) {
         self.boxscore = response.data.data.boxscore;

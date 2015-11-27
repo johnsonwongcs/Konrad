@@ -2,16 +2,36 @@
 	<table>
 		<tr>
 			<td ng-repeat="inning in Ctrl.MLBService.innings">{{$index+1}}</td>
+			<td>R</td>
+			<td>H</td>
+			<td>E</td>
 		</tr>
 		<tr>
 			<td ng-repeat="inning in Ctrl.MLBService.innings">{{inning.away}}</td>
+			<td>Ctrl.MLB</td>
 		</tr>
 		<tr>
 			<td ng-repeat="inning in Ctrl.MLBService.innings">{{inning.home}}</td>
 		</tr>
 	</table>
 
-	  <table>
+	<form name="myForm">
+		<label>
+			<input type="radio" ng-model="team" value="home">Home Team
+		</label><br/>
+		<label>
+			<input type="radio" ng-model="team" value="away">Away Team
+		</label><br/><br/>
+
+		<label><br/>
+			<input type="radio" ng-model="pitcher" value="pitcher">Pitcher
+		</label>
+		<label><br/>
+			<input type="radio" ng-model="pitcher" value="batter">Batter
+		</label>
+	</form>
+
+	  <table ng-show>
 	  	<tr>
 	  		<td>Name</td>
 	  		<td>AB</td>
