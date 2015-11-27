@@ -10,6 +10,7 @@ function MLBService($q,$http,$location) {
   this.innings = [];
   this.favorite = "Blue Jays"
   this.count = 0;
+  this.err = false;
 }
 
 MLBService.prototype.getDate = function() {
@@ -21,12 +22,12 @@ MLBService.prototype.getDate = function() {
 
   this.gamesData = [];
   this.games = [];
-  var path = this.$location.path("/games");
   this.$http({
     method: 'GET',
     url: url
   })
     .then(function(response) {
+        var path = self.$location.path("/games");
         if (Array.isArray(response.data.data.games.game)) {
           self.gamesData = response.data.data.games.game;
         }
@@ -64,7 +65,8 @@ MLBService.prototype.getDate = function() {
         };
         console.log(self.games);
       }, function (response) {
-        console.log(response);
+        self.err = true;
+        console.log(self.err);
       })
 };
 
