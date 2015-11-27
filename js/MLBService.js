@@ -10,7 +10,7 @@ function MLBService($q,$http,$location) {
   this.innings = [];
   this.favorite = "Blue Jays"
   this.count = 0;
-  this.err = false;
+  this.err = true;
 }
 
 MLBService.prototype.getDate = function() {
@@ -65,7 +65,7 @@ MLBService.prototype.getDate = function() {
         };
         console.log(self.games);
       }, function (response) {
-        self.err = true;
+        self.err = false;
         console.log(self.err);
       })
 };
