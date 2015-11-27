@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+  <!--TODO #1: add the angular-route.js script-->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+  
+  <script src="app.js"></script>
+  <script src="js/MLBService.js"></script>
+  <script src="js/homeCtrl.js"></script>
+  <script src="js/getDateCtrl.js"></script>
+  <script src="js/gameDetailsCtrl.js"></script>
+  <script src="js/monthFilter.js"></script>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+</head>
+
+<body ng-app="coderMdb">
+  
+  <div class="container">
+    <ng-view></ng-view>
+    <!--TODO #2: show the active page here-->
+  
+  </div>
+
+</body>
+
+</html>

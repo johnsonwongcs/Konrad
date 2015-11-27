@@ -1,0 +1,94 @@
+<div>
+	<table>
+		<tr>
+			<td ng-repeat="inning in Ctrl.MLBService.innings">{{$index+1}}</td>
+		</tr>
+		<tr>
+			<td ng-repeat="inning in Ctrl.MLBService.innings">{{inning.away}}</td>
+		</tr>
+		<tr>
+			<td ng-repeat="inning in Ctrl.MLBService.innings">{{inning.home}}</td>
+		</tr>
+	</table>
+
+	  <table>
+	  	<tr>
+	  		<td>Name</td>
+	  		<td>AB</td>
+	  		<td>R</td>
+	  		<td>H</td>
+	  		<td>RBI</td>
+	  		<td>BB</td>
+	  		<td>SO</td>
+	  		<td>AVG</td>
+	  	</tr>
+        <tr ng-repeat="batter in Ctrl.MLBService.boxscore.batting[0].batter">
+        	<td>{{batter.name}}</td>
+        	<td>{{batter.ab}}</td>
+        	<td>{{batter.r}}</td>
+        	<td>{{batter.h}}</td>
+        	<td>{{batter.rbi}}</td>
+        	<td>{{batter.bb}}</td>
+        	<td>{{batter.so}}</td>
+        	<td>{{batter.avg}}</td>
+        </tr>
+     </table>
+     <table>
+	  	<tr>
+	  		<td>Name</td>
+	  		<td>AB</td>
+	  		<td>R</td>
+	  		<td>H</td>
+	  		<td>RBI</td>
+	  		<td>BB</td>
+	  		<td>SO</td>
+	  		<td>AVG</td>
+	  	</tr>
+        <tr ng-repeat="batter in Ctrl.MLBService.boxscore.batting[1].batter">
+        	<td>{{batter.name}}</td>
+        	<td>{{batter.ab}}</td>
+        	<td>{{batter.r}}</td>
+        	<td>{{batter.h}}</td>
+        	<td>{{batter.rbi}}</td>
+        	<td>{{batter.bb}}</td>
+        	<td>{{batter.so}}</td>
+        	<td>{{batter.avg}}</td>
+        </tr>
+    </table>
+    <table>
+	  	<tr>
+	  		<td>Name</td>
+	  		<td>BB</td>
+	  		<td>HR</td>
+	  		<td>H</td>
+	  		<td>R</td>
+	  		<td>SO</td>
+	  	</tr>
+        <tr ng-repeat="pitcher in Ctrl.MLBService.boxscore.pitching[0].pitcher">
+        	<td>{{pitcher.name}}</td>
+        	<td>{{pitcher.bb}}</td>
+        	<td>{{pitcher.hr}}</td>
+        	<td>{{pitcher.h}}</td>
+        	<td>{{pitcher.r}}</td>
+        	<td>{{pitcher.so}}</td>
+        </tr>
+    </table>
+    <table>
+	  	<tr>
+	  		<td>Name</td>
+	  		<td>BB</td>
+	  		<td>HR</td>
+	  		<td>H</td>
+	  		<td>R</td>
+	  		<td>SO</td>
+	  	</tr>
+        <tr ng-repeat="pitcher in Ctrl.MLBService.boxscore.pitching[1].pitcher">
+        	<td>{{pitcher.name}}</td>
+        	<td>{{pitcher.bb}}</td>
+        	<td>{{pitcher.hr}}</td>
+        	<td>{{pitcher.h}}</td>
+        	<td>{{pitcher.r}}</td>
+        	<td>{{pitcher.so}}</td>
+        </tr>
+    </table>
+</div>
