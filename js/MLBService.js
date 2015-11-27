@@ -3,32 +3,67 @@ app.service('MLBService', MLBService);
 function MLBService($q,$http,$location) {
   this.$http = $http;
   this.$location = $location;
-  this.game = [];
   this.year = '2014';
-  this.month = '07';
-  this.day = '15';
+  this.month = '03';
+  this.day = '29';
   this.boxscore = [];
   this.innings = [];
+  this.favorite = "Blue Jays"
+  this.count = 0;
 }
 
 MLBService.prototype.getDate = function() {
   var url = 'http://gd2.mlb.com/components/game/mlb/year_'+this.year+'/month_'+this.month+'/day_'+this.day+'/master_scoreboard.json';
   var self = this;
-  this.game = [];
+
+  this.count++;
+  console.log('count = '+this.count);
+
+  this.gamesData = [];
+  this.games = [];
   var path = this.$location.path("/games");
   this.$http({
     method: 'GET',
     url: url
   })
-    .then(function successCallback(response) {
+    .then(function(response) {
         if (Array.isArray(response.data.data.games.game)) {
-          self.game = response.data.data.games.game;
+          self.gamesData = response.data.data.games.game;
         }
         else {
-          self.game.push(response.data.data.games.game);
+          self.gamesData.push(response.data.data.games.game);
         }
-        console.log(self.game);
-      }, function errorCallback(response) {
+        console.log(self.gamesData);
+        for (var i=0;i<self.gamesData.length;i++) {
+          var tempObject = {};
+          tempObject.away = self.gamesData[i].away_team_name;
+          tempObject.home = self.gamesData[i].home_team_name;
+          tempObject.url = self.gamesData[i].game_data_directory;
+          tempObject.status = self.gamesData[i].status.status;
+          if (self.gamesData[i].linescore) {
+            tempObject.linescore = self.gamesData[i].linescore;
+            if ((self.gamesData[i].linescore.r.away - self.gamesData[i].linescore.r.home)>0) {
+              tempObject.winner = "away";
+            }
+            else if ((self.gamesData[i].linescore.r.away - self.gamesData[i].linescore.r.home)<0) {
+              tempObject.winner = "home";
+            }
+            else {
+              tempObject.winner = "";
+            }
+          }
+          
+          if (tempObject.away == self.favorite || tempObject.home == self.favorite) {
+            console.log(tempObject);
+            self.games.splice(0,0,tempObject);
+          } 
+          else {
+            console.log(tempObject);
+            self.games.push(tempObject);
+          }
+        };
+        console.log(self.games);
+      }, function (response) {
         console.log(response);
       })
 };
@@ -41,7 +76,7 @@ MLBService.prototype.getData = function(index) {
     console.log(this.innings);
     this.$http({
     method: 'POST',
-    url: 'http://www.mlb.com/gdcross'+self.game[index].game_data_directory+'/boxscore.json'
+    url: 'http://www.mlb.com/gdcross'+self.game[index].url+'/boxscore.json'
   })
     .then(function successCallback(response) {
         self.boxscore = response.data.data.boxscore;

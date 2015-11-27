@@ -1,39 +1,15 @@
-.movie-list-item {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.movie-list-item:hover {
-  background-color: #eee;
-}
-
-.movie-list-item .poster-container {
-  height: 200px;
-  width: 150px;
-}
-
 td {
   width: 20px;
 
   text-align: center;
 }
 
-.movie-list-item .movie-poster {
-  max-height: 200px;
-  max-width: 150px;
+.winner {
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.released-date {
-  margin-top: 20px;
-}
-
-
-
-#movie-details .movie-poster {
-  max-height: 350px;
-  max-width: 262px;
-}
-
-#movie-details .buttons {
-  text-align: center;
+.box {
+  margin: 10px;
+  border-bottom: thick solid #666666;
 }

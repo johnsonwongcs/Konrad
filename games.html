@@ -1,10 +1,10 @@
-
-
 <h2>{{Ctrl.MLBService.day}}/{{Ctrl.MLBService.month}}/{{Ctrl.MLBService.year}}</h2>
 <div >
-	<a ng-href="/#/details/{{$index}}" ng-repeat="game in Ctrl.MLBService.game">
-		<h4>{{game.away_team_name}} ({{game.linescore.r.away}})</h4>
-		<h4>{{game.home_team_name}} ({{game.linescore.r.home}})</h4> 
-		<h4>Status: {{game.status.status}}</h4>
+	<a ng-href="/#/details/{{$index}}" ng-repeat="game in Ctrl.MLBService.games track by $index">
+		<div class="box">
+			<h4 ng-class="{winner: (game.winner == 'away')}">{{game.away}} {{game.linescore.r.away}}</h4>
+			<h4 ng-class='[{winner: game.winner == "home"}]'>{{game.home}} {{game.linescore.r.home}}</h4> 
+			<h4>Status: {{game.status}}</h4>
+		</div>
 	</a>
 </div>
