@@ -1,37 +1,47 @@
 <div>
 	<table>
 		<tr>
-			<td ng-repeat="inning in Ctrl.MLBService.innings">{{$index+1}}</td>
+			<td></td>
+			<td ng-repeat="inning in Ctrl.MLBService.linescore.inning">{{$index+1}}</td>
 			<td>R</td>
 			<td>H</td>
 			<td>E</td>
 		</tr>
 		<tr>
-			<td ng-repeat="inning in Ctrl.MLBService.innings">{{inning.away}}</td>
-			<td>Ctrl.MLB</td>
+			<td>{{Ctrl.MLBService.game.awayAbbrev}}</td>
+			<td ng-repeat="inning in Ctrl.MLBService.linescore.inning">{{inning.away}}</td>
+			<td>{{Ctrl.MLBService.linescore.r.away}}</td>
+			<td>{{Ctrl.MLBService.linescore.h.away}}</td>
+			<td>{{Ctrl.MLBService.linescore.e.away}}</td>
 		</tr>
 		<tr>
-			<td ng-repeat="inning in Ctrl.MLBService.innings">{{inning.home}}</td>
+			<td>{{Ctrl.MLBService.game.homeAbbrev}}</td>
+			<td ng-repeat="inning in Ctrl.MLBService.linescore.inning">{{inning.home}}</td>
+			<td>{{Ctrl.MLBService.linescore.r.home}}</td>
+			<td>{{Ctrl.MLBService.linescore.h.home}}</td>
+			<td>{{Ctrl.MLBService.linescore.e.home}}</td>
 		</tr>
 	</table>
 
 	<form name="myForm">
 		<label>
-			<input type="radio" ng-model="team" value="home">Home Team
-		</label><br/>
-		<label>
-			<input type="radio" ng-model="team" value="away">Away Team
-		</label><br/><br/>
-
-		<label><br/>
-			<input type="radio" ng-model="pitcher" value="pitcher">Pitcher
+			<input type="radio" ng-model="Ctrl.team" value="home">{{Ctrl.MLBService.game.homeAbbrev}}
 		</label>
-		<label><br/>
-			<input type="radio" ng-model="pitcher" value="batter">Batter
+		<label>
+			<input type="radio" ng-model="Ctrl.team" value="away">{{Ctrl.MLBService.game.awayAbbrev}}
+		</label><br/><br/>
+	</form>
+
+	<form name="myForm2">
+		<label>
+			<input type="radio" ng-model="Ctrl.pitcher" value="pitcher">Pitcher
+		</label>
+		<label>
+			<input type="radio" ng-model="Ctrl.pitcher" value="batter">Batter
 		</label>
 	</form>
 
-	  <table ng-show>
+	  <table ng-show="(Ctrl.team=='away') && (Ctrl.pitcher=='batter')">
 	  	<tr>
 	  		<td>Name</td>
 	  		<td>AB</td>
@@ -53,7 +63,7 @@
         	<td>{{batter.avg}}</td>
         </tr>
      </table>
-     <table>
+     <table ng-show="(Ctrl.team=='home') && (Ctrl.pitcher=='batter')">
 	  	<tr>
 	  		<td>Name</td>
 	  		<td>AB</td>
@@ -75,7 +85,7 @@
         	<td>{{batter.avg}}</td>
         </tr>
     </table>
-    <table>
+    <table ng-show="(Ctrl.team=='away') && (Ctrl.pitcher=='pitcher')">
 	  	<tr>
 	  		<td>Name</td>
 	  		<td>BB</td>
@@ -93,7 +103,7 @@
         	<td>{{pitcher.so}}</td>
         </tr>
     </table>
-    <table>
+    <table ng-show="(Ctrl.team=='home') && (Ctrl.pitcher=='pitcher')">
 	  	<tr>
 	  		<td>Name</td>
 	  		<td>BB</td>

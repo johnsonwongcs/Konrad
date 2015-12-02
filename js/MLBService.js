@@ -1,13 +1,14 @@
 app.service('MLBService', MLBService);
 
-function MLBService($q,$http,$location) {
+function MLBService($q,$http,$location,$cookies) {
   this.$http = $http;
   this.$location = $location;
+  this.$cookies = $cookies;
   this.year = '2014';
   this.month = '03';
   this.day = '29';
   this.boxscore = [];
-  this.innings = [];
+  this.linescore = [];
   this.favorite = "Blue Jays"
   this.count = 0;
   this.err = true;
@@ -27,15 +28,17 @@ MLBService.prototype.getDate = function() {
         var path = self.$location.path("/games");
         if (Array.isArray(response.data.data.games.game)) {
           self.gamesData = response.data.data.games.game;
+          console.log(response.data.data.games);
         }
         else {
           self.gamesData.push(response.data.data.games.game);
         }
-        console.log(self.gamesData);
         for (var i=0;i<self.gamesData.length;i++) {
           var tempObject = {};
           tempObject.away = self.gamesData[i].away_team_name;
+          tempObject.awayAbbrev = self.gamesData[i].away_name_abbrev;
           tempObject.home = self.gamesData[i].home_team_name;
+          tempObject.homeAbbrev = self.gamesData[i].home_name_abbrev;
           tempObject.url = self.gamesData[i].game_data_directory;
           tempObject.status = self.gamesData[i].status.status;
           if (self.gamesData[i].linescore) {
@@ -57,6 +60,8 @@ MLBService.prototype.getDate = function() {
           else {
             self.games.push(tempObject);
           }
+          self.$cookies.putObject('games', self.games);
+          console.log(self.$cookies.getObject('games'));
         };
       }, function (response) {
         self.err = false;
@@ -65,17 +70,17 @@ MLBService.prototype.getDate = function() {
 
 MLBService.prototype.getData = function(index) {
     var self = this;
-    console.log(index);
-    console.log(self.games[index]);
-    this.innings = this.games[index].linescore.inning;
-    console.log(this.innings);
+    this.game = this.games[index];
+    this.linescore = this.games[index].linescore;
     this.$http({
     method: 'POST',
     url: 'http://www.mlb.com/gdcross'+self.games[index].url+'/boxscore.json'
   })
     .then(function successCallback(response) {
         self.boxscore = response.data.data.boxscore;
-        console.log(self.boxscore.pitching);
+        self.$cookies.putObject('boxscore', self.boxscore);
+        console.log(self.$cookies.getObject('boxscore'));
+        console.log(response.data.data);
       }, function errorCallback(response) {
         console.log(response);
       })

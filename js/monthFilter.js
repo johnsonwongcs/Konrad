@@ -4,4 +4,4 @@ function monthFilter() {
 	};
 
 }
-angular.module('coderMdb').filter('monthFilter', monthFilter);
+angular.module('MLB').filter('monthFilter', monthFilter);
